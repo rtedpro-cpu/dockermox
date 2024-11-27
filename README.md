@@ -13,7 +13,7 @@
 ```bash
 docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:8.3b2
 ```
-By default theres no vmbr0 networking. Instead deploy the VM (LXC Not supported yet) without network and then apply the network patch for your VMID.
+By default theres no vmbr0 networking. Instead deploy the VM (LXC Not supported yet) without network and then apply the network patch (in proxmox shell) for your VMID.
 ```bash
 sudo qm set VMID --args "-device e1000,netdev=n0 -netdev user,id=n0"
 ```
