@@ -7,7 +7,7 @@
 *Dockermox* (Docker**prox**mox) is a docker based solution to run Proxmox VE in a docker container inside linux hosts. Theres no support for arm64 at the moment.
 ![Screenshot of dockermox](./image.png)
 ![Screenshot of dockermox](./image2.png)
-Default username and passwprd:
+Default username and password:
 
 **Username**: root 
 
