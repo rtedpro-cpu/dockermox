@@ -16,7 +16,7 @@ Default username and password:
 ## Getting Started
 *Dockermox* can be ran by using this docker command
 ```bash
-docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:8.3b2
+docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:8.3b3
 ```
 **WARNNING** the network patch has been discontinued in 8.3b3 which will be applied automaticly.
 By default theres no vmbr0 networking. Instead deploy the VM (LXC Not supported yet) without network and then apply the network patch (in proxmox shell) for your VMID.
