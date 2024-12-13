@@ -3,6 +3,12 @@ As of writing this (11/12/2024-DD-MM-YEAR)
 
 I have made the vmbr0 work without needing the proxnet service
 
+
+Stop the proxnet service inside container (b3 only)
+```bash
+docker exec -it proxmoxve systemctl stop proxnet.timer
+```
+
 Start by creating a network
 
 ```bash
