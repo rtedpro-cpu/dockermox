@@ -47,8 +47,11 @@ replace everything with this config in the file
 auto eth0
 
 iface eth0 inet static
+    
     address 192.168.2.76
+    
     netmask 255.255.255.0
+    
     gateway 192.168.2.1
 
 NOW add dns
