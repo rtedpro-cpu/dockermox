@@ -5,6 +5,10 @@
 
 ## Overview
 *Dockermox* (Docker**prox**mox) is a docker based solution to run Proxmox VE in a docker container inside linux hosts. Theres no support for arm64 at the moment.
+
+
+Theres partial support for lxc, check the lxc folder in the github repo for more information.
+
 ![Screenshot of dockermox](./image.png)
 ![Screenshot of dockermox](./image2.png)
 Default username and password:
@@ -18,11 +22,8 @@ Default username and password:
 ```bash
 docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:8.3b3
 ```
-**WARNNING** the network patch has been discontinued in 8.3b3 which will be applied automaticly.
-By default theres no vmbr0 networking. Instead deploy the VM (LXC Not supported yet) without network and then apply the network patch (in proxmox shell) for your VMID.
-```bash
-sudo qm set VMID --args "-device e1000,netdev=n0 -netdev user,id=n0"
-```
+
+**WARNNING** No vmbr0 bridge is created by default, goto the vmbr0 folder in the github repo.
 
 ## Troubleshooting
 Please create a issue and describe the issue you have.
