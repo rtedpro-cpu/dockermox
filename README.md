@@ -20,7 +20,7 @@ Default username and password:
 ## Getting Started
 *Dockermox* can be ran by using this docker command
 ```bash
-docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:8.3b3
+docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:8.3.3
 ```
 
 **WARNNING** No vmbr0 bridge is created by default, goto the vmbr0 folder in the github repo.
