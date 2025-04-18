@@ -1,10 +1,7 @@
-As of writing this (11/12/2024-DD-MM-YEAR)
+Actual vmbr0 Networking support
+Here is how to do it.
 
-
-I have made the vmbr0 work without needing the proxnet service
-
-
-Stop the proxnet service inside container (b3 only)
+Stop the proxnet service inside container (8.3b3 only)
 ```bash
 docker exec -it proxmoxve systemctl stop proxnet.timer
 ```
@@ -24,7 +21,7 @@ Assign to a container
 docker network connect eth2 proxmoxve
 ```
 
-Redirect traffic
+Redirect traffic (optional)
 
 ```bash
 sudo iptables -t nat -A POSTROUTING -s 192.168.2.0/24 ! -o eth2 -j MASQUERADE
