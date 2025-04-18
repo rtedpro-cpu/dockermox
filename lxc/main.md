@@ -3,7 +3,7 @@ lxcfs needs to be patched out, edit the file in container (/lib/systemd/system/l
 
 And uncomment the line with "ConditionVirtualization"
 
-save it and refresh the systemctl dameon.
+save it and "systemctl daemon-reload" then "systemctl restart lxcfs" \\inside container\\
 
 
 Make sure you already have vmbr0 networking or else it wont work.
@@ -24,3 +24,6 @@ lxc-start -n CTIDHERE
 ```
 
 Then you should be done and you can access the lxc container. You have to do this every time if you wanna start the container.
+
+
+WARRING: For sometimes all you gotta do is edit the lxcfs and not use nesting in unprivileged container and it would work out of the box.
