@@ -1,16 +1,19 @@
 # LXC in dockermox
-lxcfs needs to be patched out, edit the file in container (/lib/systemd/system/lxcfs.service)
+The service lxcfs needs to be patched out, edit the file in container (/lib/systemd/system/lxcfs.service)
 
 And uncomment the line with "ConditionVirtualization"
 
-save it and "systemctl daemon-reload" then "systemctl restart lxcfs" \\inside container\\
+Save it and run "systemctl daemon-reload" then "systemctl restart lxcfs" \\inside container\\
 
 
-Make sure you already have vmbr0 networking or else it wont work.
+We assume you have VMBR0 networking already done and working.
 
+WARRING: For not everyone all you gotta do is edit the lxcfs and not use nesting in unprivileged container and it would work out of the box.
+ONLY PROCEED IF IT DIDNT WORK
 
 # Making a container
 Usually create the container in Proxmox VE and if you get a disk error while creating, you will need to execute "modprobe loop" in the host.
+Make sure you also have assigned a ip address and gateway and finally DNS (example... 192.168.2.2,192.168.2.1,1.1.1.1)
 After creating, edit the lxc container config (nano /var/lib/lxc/CTIDHERE/config)
 
 Remove any line with apparmor in it.
@@ -24,6 +27,3 @@ lxc-start -n CTIDHERE
 ```
 
 Then you should be done and you can access the lxc container. You have to do this every time if you wanna start the container.
-
-
-WARRING: For sometimes all you gotta do is edit the lxcfs and not use nesting in unprivileged container and it would work out of the box.
