@@ -11,6 +11,8 @@ There is full support for LXC containers, Click ![here](./lxc/main.md) for more 
 
 ![Screenshot of dockermox](./showcase_container_1.png)
 ![Screenshot of dockermox](./showcase_vm_1.png)
+As usual it is Docker, not a Proxmox VM.
+![Screenshot of dockermox](./showcase.png)
 Default username and password:
 
 **Username**: root 
