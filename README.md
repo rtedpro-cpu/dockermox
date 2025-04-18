@@ -9,7 +9,7 @@
 
 There is full support for LXC containers, Click ![here](./lxc/main.md) for more information.
 
-![Screenshot of dockermox](./image.png)
+![Screenshot of dockermox](./showcase_container_1.png)
 ![Screenshot of dockermox](./image2.png)
 Default username and password:
 
