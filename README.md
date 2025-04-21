@@ -4,7 +4,7 @@
 - [Troubleshooting](#troubleshooting)
 
 ## Overview
-*Dockermox* (Docker**prox**mox) is a docker based solution to run Proxmox VE in a docker container inside linux hosts. Theres no support for arm64 at the moment and probably wont be.
+*Dockermox* (Docker**prox**mox) is a docker based solution to run Proxmox VE in a docker container inside linux hosts. With the support of also arm64, only 8.3.3.
 
 
 There is full support for LXC containers, Click ![here](./lxc/main.md) for more information.
@@ -21,8 +21,15 @@ Default username and password:
 
 ## Getting Started
 *Dockermox* can be ran by using this docker command
+
+x86_64
 ```bash
 docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:8.4.x
+```
+
+arm64
+```bash
+docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:8.4.1-arm64
 ```
 
 **WARNNING** No vmbr0 bridge is created by default, click ![here](./vmbr0/README.md) to set it up
