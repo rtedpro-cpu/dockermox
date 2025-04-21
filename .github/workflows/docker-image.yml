@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag rtedpro/dockermox:$(date +%s)
+      run: wget -O Dockerfile "https://raw.githubusercontent.com/rtedpro-cpu/dockermox/refs/heads/main/.github/workflows/Dockerfile" && docker build . --file Dockerfile --tag rtedpro/dockermox:$(date +%s)
