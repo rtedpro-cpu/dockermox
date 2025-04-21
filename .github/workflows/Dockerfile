@@ -7,7 +7,7 @@ RUN apt-get update && \
 
 RUN echo "deb [arch=amd64] http://download.proxmox.com/debian/pve bookworm pve-no-subscription" > /etc/apt/sources.list.d/pve-install-repo.list
 RUN wget https://enterprise.proxmox.com/debian/proxmox-release-bookworm.gpg -O /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg
-RUN apt update && apt full-upgrade
+RUN apt update && apt full-upgrade -y
 RUN apt install proxmox-ve postfix open-iscsi chrony -y
 CMD ["bash"]
 ENTRYPOINT ["/sbin/init"]
