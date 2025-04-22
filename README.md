@@ -27,7 +27,7 @@ x86_64
 docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:8.4.x
 ```
 
-arm64
+arm64 (Unofficial Proxmox Release!)
 ```bash
 docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:8.4.1-arm64
 ```
