@@ -1,7 +1,7 @@
 # LXC in dockermox
 The service lxcfs needs to be patched out, edit the file in container (/lib/systemd/system/lxcfs.service)
 
-And uncomment the line with "ConditionVirtualization"
+And uncomment the line with "ConditionVirtualization", by putting a "#" before it.
 
 Save it and run "systemctl daemon-reload" then "systemctl restart lxcfs" \\inside container\\
 
@@ -17,7 +17,7 @@ Make sure you also have assigned a ip address and gateway and finally DNS (examp
 After creating, edit the lxc container config (nano /var/lib/lxc/CTIDHERE/config)
 
 Remove any line with apparmor in it.
-At the end add this line
+At the end of all lines, add this line.
 ```bash
 lxc.apparmor.profile=unconfined
 ```
