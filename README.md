@@ -20,6 +20,17 @@ Default username and password:
 **Password**: root
 
 ## Getting Started
+Before we can start, we need to verify that we can run it.
+
+In order to verify, run the following command.
+
+```bash
+ls /dev/fuse
+```
+
+If the result is "/dev/fuse" then you can continue otherwise activate the fuse module in your kernel.
+
+
 *Dockermox* can be ran by using this docker command
 
 x86_64
