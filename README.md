@@ -33,6 +33,8 @@ If the result is "/dev/fuse" then you can continue otherwise activate the fuse m
 
 *Dockermox* can be ran by using this docker command
 
+**Due to securiy reasons, the docker image has been disabled until 28th of June.
+
 x86_64
 ```bash
 docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:8.4.x
