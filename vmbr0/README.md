@@ -1,7 +1,7 @@
 Actual vmbr0 Networking support
 Here is how to do it.
 
-Stop the proxnet service inside container (8.3b3 only)
+(Ignore this step IF you are not using 8.3b3 tag) Stop the proxnet service inside containe
 ```bash
 docker exec -it proxmoxve systemctl stop proxnet.timer
 ```
