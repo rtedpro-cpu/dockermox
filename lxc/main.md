@@ -3,15 +3,20 @@ The service lxcfs needs to be patched out, edit the file in container (/lib/syst
 
 And uncomment the line with "ConditionVirtualization", by putting a "#" before it.
 
-Save it and run "systemctl daemon-reload" then "systemctl restart lxcfs" \\inside container\\
+Save it and run 
 
+```bash
+systemctl daemon-reload
+systemctl restart lxcfs
+```
 
-We assume you have VMBR0 networking already done and working.
+Assuming you have VMBR0 networking already done and working, continue then.
 
 WARRING: For not everyone all you gotta do is edit the lxcfs and not use nesting in unprivileged container and it would work out of the box.
 ONLY PROCEED IF IT DIDNT WORK
 
 # Making a container
+
 Usually create the container in Proxmox VE and if you get a disk error while creating, you will need to execute "modprobe loop" in the host.
 Make sure you also have assigned a ip address and gateway and finally DNS (example... 192.168.2.2,192.168.2.1,1.1.1.1)
 After creating, edit the lxc container config (nano /var/lib/lxc/CTIDHERE/config)
