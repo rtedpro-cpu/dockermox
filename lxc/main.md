@@ -17,7 +17,11 @@ ONLY PROCEED IF IT DIDNT WORK
 
 # Making a container
 
-Usually create the container in Proxmox VE and if you get a disk error while creating, you will need to execute "modprobe loop" in the host.
+Usually create the container in Proxmox VE and if you get a disk error while creating, you will need to execute this in the host.
+``` bash
+modprobe loop
+```
+
 Make sure you also have assigned a ip address and gateway and finally DNS (example... 192.168.2.2,192.168.2.1,1.1.1.1)
 After creating, edit the lxc container config (nano /var/lib/lxc/CTIDHERE/config)
 
