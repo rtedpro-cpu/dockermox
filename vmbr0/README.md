@@ -1,10 +1,5 @@
-Actual vmbr0 Networking support
-Here is how to do it.
+# Guide to setup vmbr0 networking.
 
-(Ignore this step IF you are not using 8.3b3 tag) Stop the proxnet service inside container
-```bash
-docker exec -it proxmoxve systemctl stop proxnet.timer
-```
 
 Start by creating a network
 
