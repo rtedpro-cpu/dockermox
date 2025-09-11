@@ -20,4 +20,4 @@ Create a Linux Bridge and bridge it to eth1, then apply the configuration.
 ![vmbr0](./image.png)
 
 
-Thats all! Tho you will have to apply static ips in VMs to have network access (Or create your own DHCP SERVER)
+Thats all! Then you will have to apply static ips in VMs to have network access. (Or create your own DHCP SERVER)
