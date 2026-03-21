@@ -31,11 +31,11 @@ ls /dev/fuse
 If the result is "/dev/fuse" then you can continue otherwise activate the fuse module in your kernel.
 
 
-*Dockermox* can be ran by using this docker command
+*Dockermox* can be ran by using this docker run command
 
 x86_64
 ```bash
-docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:9.1.5
+docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:9.1.6
 ```
 
 arm64 (Source: PXVIRT)
