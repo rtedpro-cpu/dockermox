@@ -49,7 +49,8 @@ arm64 (Source: PXVIRT)
 docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:8.4.1-arm64
 ```
 
-**WARNING** No vmbr0 bridge is created by default, click [here](./vmbr0/README.md) to set it up
+> [!WARNING]
+> No `vmbr0` bridge is created by default. Click [here](./vmbr0/README.md) to set it up.
 
 ## Troubleshooting
 Please create a issue and describe the issue you have.
