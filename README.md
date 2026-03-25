@@ -13,11 +13,16 @@ There is full support for LXC containers, Click [here](./lxc/main.md) for more i
 ![Screenshot of dockermox](./showcase_vm_1.png)
 As usual it is Docker, not a Proxmox VM.
 ![Screenshot of dockermox](./showcase.png)
+
 Default username and password:
 
 **Username**: root 
 
 **Password**: root
+
+> [!IMPORTANT]
+> Change the default password after running the container.
+> If exposed to the public internet with default credentials, the container **can** be compromised.
 
 ## Getting Started
 Before we can start, we need to verify that we can run it.
