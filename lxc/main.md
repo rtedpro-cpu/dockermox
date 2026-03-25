@@ -10,19 +10,15 @@ systemctl daemon-reload
 systemctl restart lxcfs
 ```
 
-Assuming you have VMBR0 networking already done and working, continue then.
+Assuming you have vmbr0 networking already done and working, continue then.
 
-WARRING: For not everyone all you gotta do is edit the lxcfs and not use nesting in unprivileged container and it would work out of the box.
-ONLY PROCEED IF IT DIDNT WORK
-
-# Making a container
 
 Usually create the container in Proxmox VE and if you get a disk error while creating, you will need to execute this in the host.
 ``` bash
 modprobe loop
 ```
 
-Make sure you also have assigned a ip address and gateway and finally DNS (example... 192.168.2.2,192.168.2.1,1.1.1.1)
+Make sure you also have assigned a ip address and gateway and finally DNS (example... 192.168.2.3,192.168.2.1,1.1.1.1)
 After creating, edit the lxc container config (nano /var/lib/lxc/CTIDHERE/config)
 
 Remove any line with apparmor in it.
