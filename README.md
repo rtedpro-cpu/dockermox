@@ -22,6 +22,7 @@ Default username and password:
 
 > [!IMPORTANT]
 > Change the default password after running the container.
+> 
 > If exposed to the public internet with default credentials, the container **can** be compromised.
 
 ## Getting Started
