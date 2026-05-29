@@ -7,6 +7,7 @@
 *Dockermox* (Docker**prox**mox) is a docker based solution to run Proxmox VE in a docker container inside linux hosts. With the support of also for arm64.
 
 
+> [!NOTE]
 There is full support for LXC containers, Click [here](./lxc/main.md) for more information.
 
 ![Screenshot of dockermox](./showcase_container_1.png)
