@@ -38,4 +38,7 @@ After applying the configuration, it may be required to restart the container ma
 docker restart proxmoxve
 ```
 
-Thats all! Then you will have to apply static ips in VMs to have network access. (Or create your own DHCP SERVER)
+> [!NOTE]
+> This may cause the host to reboot. Could be caused by the privileged mode.
+
+Thats all, then you will have to apply static ips in VMs to have network access. (Or create your own DHCP Server)
