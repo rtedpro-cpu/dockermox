@@ -45,7 +45,7 @@ If the result is "/dev/fuse" then you can continue otherwise activate the fuse m
 
 x86_64
 ```bash
-docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:9.2.3
+docker run -itd --name proxmoxve --hostname pve -p 8006:8006 --privileged rtedpro/proxmox:9.2.4
 ```
 
 arm64 (Source: PXVIRT)
