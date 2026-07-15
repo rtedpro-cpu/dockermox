@@ -1,5 +1,8 @@
 # LXC in dockermox
-The service lxcfs needs to be patched out, edit the file in container (/lib/systemd/system/lxcfs.service)
+
+**Currently, this only applies to images older than 9.2.4. If you are on 9.2.4 or above, you do not need to do this.**
+
+The service `lxcfs` needs to be patched out, edit the file in container (/lib/systemd/system/lxcfs.service)
 
 And uncomment the line with "ConditionVirtualization", by putting a "#" before it.
 
