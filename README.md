@@ -44,14 +44,14 @@ If the result is `/dev/fuse` then you can continue otherwise, try modprobing the
 > 
 > **Password will be hashed with sha256 on the 4th startup of the container.**
 
-*Dockermox* can be ran by using this docker run command
+*Dockermox* can be ran by using one of these `docker run` commands.
 
-x86_64 (Slim Image)
+x86_64 (Slim Image, 2 GB)
 ```bash
 docker run -itd --name proxmoxve --hostname pve -p 8006:8006 -v ~/.dockermox:/usr/lib/dockermox --privileged rtedpro/proxmox:9.2.4
 ```
 
-x86_64 (Full Image)
+x86_64 (Full Image, 4 GB)
 ```bash
 docker run -itd --name proxmoxve --hostname pve -p 8006:8006 -v ~/.dockermox:/usr/lib/dockermox --privileged rtedpro/proxmox:9.2.4-full
 ```
