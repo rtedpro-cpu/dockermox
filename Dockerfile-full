@@ -9,8 +9,22 @@ RUN wget https://enterprise.proxmox.com/debian/proxmox-archive-keyring-trixie.gp
 # Add Proxmox VE no-subscription repository (deb822 format required for Debian 13)
 RUN printf 'Types: deb\nURIs: http://download.proxmox.com/debian/pve\nSuites: trixie\nComponents: pve-no-subscription\nSigned-By: /usr/share/keyrings/proxmox-archive-keyring.gpg\n' \
     > /etc/apt/sources.list.d/pve-install-repo.sources
+# Prevent services from starting during install
+RUN printf '#!/bin/sh\nexit 101\n' > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
+# Stub commands unavailable / problematic in Docker build (mirrors Dockerfile-slim)
+RUN dpkg-divert --local --rename --add /usr/bin/unshare && \
+    printf '#!/bin/sh\nwhile [ $# -gt 0 ] && [ "$1" != "--" ]; do shift; done\n[ "$1" = "--" ] && shift\n[ $# -gt 0 ] && exec "$@"\nexit 0\n' \
+      > /usr/bin/unshare && chmod +x /usr/bin/unshare && \
+    dpkg-divert --local --rename --add /usr/sbin/update-initramfs && \
+    printf '#!/bin/sh\nexit 0\n' > /usr/sbin/update-initramfs && chmod +x /usr/sbin/update-initramfs && \
+    dpkg-divert --local --rename --add /usr/sbin/ifreload && \
+    printf '#!/bin/sh\nexit 0\n' > /usr/sbin/ifreload && chmod +x /usr/sbin/ifreload && \
+    printf '#!/bin/sh\nexit 0\n' > /usr/local/sbin/systemctl && chmod +x /usr/local/sbin/systemctl
 # pve-manager postinst copies this file — pre-create it so the cp doesn't fail
 RUN mkdir -p /usr/share/doc/pve-manager && touch /usr/share/doc/pve-manager/aplinfo.dat
+# Pin ifupdown2 to the Proxmox repo — pve-manager checks for their patched version
+RUN printf 'Package: ifupdown2\nPin: origin download.proxmox.com\nPin-Priority: 1001\n' \
+    > /etc/apt/preferences.d/proxmox-ifupdown2
 # Install Proxmox VE
 RUN apt-get update && \
     apt-get full-upgrade -y && \
@@ -26,6 +40,10 @@ RUN apt-get update && \
           /etc/apt/sources.list.d/ceph.sources && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+# Fix ifreload so the Proxmox GUI version check passes without breaking container networking
+RUN ln -sf ifupdown2 /usr/share/ifupdown2/ifreload && \
+    printf '#!/bin/sh\ncase "$1" in\n  -V|--version)\n    exec /usr/share/ifupdown2/ifreload -V\n    ;;\nesac\nexit 0\n' \
+      > /usr/sbin/ifreload && chmod +x /usr/sbin/ifreload
 # Patch lxcfs to work inside a container
 RUN printf '[Unit]\nDescription=FUSE filesystem for LXC\nBefore=lxc.service\nDocumentation=man:lxcfs(1)\n\n[Service]\nOOMScoreAdjust=-1000\nExecStartPre=/bin/mkdir -p /var/lib/lxcfs\nExecStart=/usr/bin/lxcfs /var/lib/lxcfs\nKillMode=process\nRestart=on-failure\nExecStopPost=-/bin/fusermount -u /var/lib/lxcfs\nDelegate=yes\nExecReload=/bin/kill -USR1 $MAINPID\n[Install]\nWantedBy=multi-user.target\n' > /lib/systemd/system/lxcfs.service
 # Disable AppArmor for LXC containers
