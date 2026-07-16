@@ -43,6 +43,10 @@ If the result is `/dev/fuse` then you can continue otherwise, try modprobing the
 > *Change the generated password after running the container.*
 > 
 > **Password will be hashed with sha256 on the 4th startup of the container.**
+> In case you forget the password, you can reset the password using the following command,
+> ```
+> docker exec -it proxmoxve passwd
+> ```
 
 *Dockermox* can be ran by using one of these `docker run` commands.
 
