@@ -1,0 +1,36 @@
+FROM debian:trixie-slim
+ENV DEBIAN_FRONTEND=noninteractive
+# Install prerequisites
+RUN apt-get update && apt-get install -y --no-install-recommends wget ca-certificates
+# Add Proxmox archive keyring
+RUN wget https://enterprise.proxmox.com/debian/proxmox-archive-keyring-trixie.gpg \
+      -O /usr/share/keyrings/proxmox-archive-keyring.gpg && \
+    echo "136673be77aba35dcce385b28737689ad64fd785a797e57897589aed08db6e45  /usr/share/keyrings/proxmox-archive-keyring.gpg" | sha256sum -c -
+# Add Proxmox VE no-subscription repository (deb822 format required for Debian 13)
+RUN printf 'Types: deb\nURIs: http://download.proxmox.com/debian/pve\nSuites: trixie\nComponents: pve-no-subscription\nSigned-By: /usr/share/keyrings/proxmox-archive-keyring.gpg\n' \
+    > /etc/apt/sources.list.d/pve-install-repo.sources
+# pve-manager postinst copies this file — pre-create it so the cp doesn't fail
+RUN mkdir -p /usr/share/doc/pve-manager && touch /usr/share/doc/pve-manager/aplinfo.dat
+# Install Proxmox VE
+RUN apt-get update && \
+    apt-get full-upgrade -y && \
+    apt-get install -y \
+      proxmox-ve \
+      postfix \
+      open-iscsi \
+      chrony && \
+    apt-get remove -y os-prober && \
+    rm -f /etc/apt/sources.list.d/pve-enterprise.list \
+          /etc/apt/sources.list.d/pve-enterprise.sources \
+          /etc/apt/sources.list.d/ceph.list \
+          /etc/apt/sources.list.d/ceph.sources && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+# Patch lxcfs to work inside a container
+RUN printf '[Unit]\nDescription=FUSE filesystem for LXC\nBefore=lxc.service\nDocumentation=man:lxcfs(1)\n\n[Service]\nOOMScoreAdjust=-1000\nExecStartPre=/bin/mkdir -p /var/lib/lxcfs\nExecStart=/usr/bin/lxcfs /var/lib/lxcfs\nKillMode=process\nRestart=on-failure\nExecStopPost=-/bin/fusermount -u /var/lib/lxcfs\nDelegate=yes\nExecReload=/bin/kill -USR1 $MAINPID\n[Install]\nWantedBy=multi-user.target\n' > /lib/systemd/system/lxcfs.service
+# Disable AppArmor for LXC containers
+RUN echo "lxc.apparmor.profile = unconfined" > /usr/share/lxc/config/common.conf.d/99-fix-apparmor.conf
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+EXPOSE 8006
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
