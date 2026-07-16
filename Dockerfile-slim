@@ -82,6 +82,14 @@ RUN apt-get update && \
       /usr/share/mime \
       /usr/share/doc \
       /usr/share/man
+# Fix ifreload so the Proxmox GUI version check passes without breaking container networking:
+# The real ifreload was diverted to ifreload.distrib during install (see dpkg-divert above).
+# ifupdown2 dispatches by argv[0] name, so the diverted file can't be called directly —
+# expose it via a properly-named symlink, then make the stub forward only -V/--version
+# to it (fixing the "incompatible ifupdown2" GUI error) while keeping real reloads a no-op.
+RUN ln -sf ifupdown2 /usr/share/ifupdown2/ifreload && \
+    printf '#!/bin/sh\ncase "$1" in\n  -V|--version)\n    exec /usr/share/ifupdown2/ifreload -V\n    ;;\nesac\nexit 0\n' \
+      > /usr/sbin/ifreload && chmod +x /usr/sbin/ifreload
 # Patch lxcfs to work inside a container
 RUN printf '[Unit]\nDescription=FUSE filesystem for LXC\nBefore=lxc.service\nDocumentation=man:lxcfs(1)\n\n[Service]\nOOMScoreAdjust=-1000\nExecStartPre=/bin/mkdir -p /var/lib/lxcfs\nExecStart=/usr/bin/lxcfs /var/lib/lxcfs\nKillMode=process\nRestart=on-failure\nExecStopPost=-/bin/fusermount -u /var/lib/lxcfs\nDelegate=yes\nExecReload=/bin/kill -USR1 $MAINPID\n[Install]\nWantedBy=multi-user.target\n' > /lib/systemd/system/lxcfs.service
 # Disable AppArmor for LXC containers
