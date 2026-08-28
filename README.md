@@ -52,12 +52,12 @@ If the result is `/dev/fuse` then you can continue otherwise, try modprobing the
 
 x86_64 (Slim Image, 2 GB)
 ```bash
-docker run -itd --name proxmoxve --hostname pve -p 8006:8006 -v ~/.dockermox:/usr/lib/dockermox --privileged rtedpro/proxmox:9.2.9
+docker run -itd --name proxmoxve --hostname pve -p 8006:8006 -v ~/.dockermox:/usr/lib/dockermox --privileged rtedpro/proxmox:9.2.11
 ```
 
 x86_64 (Full Image, 4 GB)
 ```bash
-docker run -itd --name proxmoxve --hostname pve -p 8006:8006 -v ~/.dockermox:/usr/lib/dockermox --privileged rtedpro/proxmox:9.2.9-full
+docker run -itd --name proxmoxve --hostname pve -p 8006:8006 -v ~/.dockermox:/usr/lib/dockermox --privileged rtedpro/proxmox:9.2.11-full
 ```
 
 arm64 (Source: [PXVIRT](https://github.com/jiangcuo/pxvirt), old image, password is: `root`)
